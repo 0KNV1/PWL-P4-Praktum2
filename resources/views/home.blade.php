@@ -3,21 +3,26 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    {{ __('You are logged in!') }}
+        @forelse($posts as $post)
+            <div class="col-md-8 my-2">
+                <div class="card">
+                    <div class="card-header">{{ $post->title }}</div>
+                    <div class="card-body">
+                        {{ $post->content }}
+                    </div>
                 </div>
             </div>
-        </div>
+        @empty
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">Post</div>
+                    <div class="card-body">
+                        Empty
+                    </div>
+                </div>
+            </div>
+        @endforelse
+        {{ $posts->links() }}
     </div>
 </div>
 @endsection
